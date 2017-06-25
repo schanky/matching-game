@@ -1,0 +1,88 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+
+h1{
+    font-family: 'Quicksand', sans-serif;
+}
+
+#game_data{
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+    margin: 0px auto;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 60%;
+    max-width: 450px;
+}
+
+#stars{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#stars > ul{
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 0px;
+    list-style-type: none;
+    padding-left: 0px;
+}
+
+#stars > ul > li{
+    margin-right: 0.1em;
+}
+
+#memory_board{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    /*position: relative;*/
+    background: #00BCC0;
+    border-radius: 0.5em;
+    width: 60%;
+    max-width: 450px;
+    height: 60%;
+    max-height: 450px;
+    padding: 0.5em;
+    margin: 0 auto;
+}
+
+#container > header{
+    margin: 0px auto;
+    text-align: center;
+}
+
+#memory_board > div{
+    display: flex;
+    /*flex-basis: 15%;*/
+    width: 2.4em;
+    height: 2.4em;
+    background: #2B3E4A;
+    border-radius: 0.3em;
+    margin: 0.5em;
+    font-size: 2em;
+    cursor: pointer;
+    text-align: center;
+}
+/*
+@media all and (max-width: 450px) {
+    #memory_board > div {
+    width: 3.5em;
+    height: 3.5em;
+  }
+}
+
+@media all and (max-width: 400px) {
+    #memory_board > div {
+    width: 0.2em;
+    height: 0.2em;
+    border-radius: 0.1em;
+    justify-content: center;
+    text-align: center;
+  }
+}
+*/
