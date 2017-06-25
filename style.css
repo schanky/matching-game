@@ -68,6 +68,7 @@ h1{
 #memory_board > div{
     display: flex;
     /*flex-basis: 15%;*/
+    flex: 0 1 auto;
     width: 2.4em;
     height: 2.4em;
     background: #2B3E4A;
@@ -81,6 +82,10 @@ h1{
     vertical-align: middle;
     align-items: center;
     justify-content: center;
+}
+
+#reload:hover{
+    cursor: pointer;
 }
 
 /*

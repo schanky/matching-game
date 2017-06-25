@@ -23,9 +23,10 @@
             </div>
             <div id="moves">17 Moves</div>
             <div id="clock">1:23:22</div>
-            <div id="reload"><i class="fa fa-refresh" aria-hidden="true"></i></div>
+            <div id="reload" onclick="setTimeout(function() {if(confirm('Would you like to restart the game?')){location.reload(true);};}, 500)"><i class="fa fa-refresh" aria-hidden="true"></i></div>
         </section>
-    </header>
+    </header><!--setTimeout(function() { alert('Reloading...'); location.reload(true); }, 500)
+    if(!alert('Alert For your User!')){window.location.reload();}-->
     <section id="memory_board"></section>
     <script> newBoard(); </script>
 </body>
