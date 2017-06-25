@@ -1,5 +1,5 @@
  //Initialize variables
-var memoryArray = ['A','A','B','B','C','C','D','D','E','E','F','F','G','G','H','H'];
+var memoryArray = ['fa fa-motorcycle','fa fa-motorcycle','fa fa-bath','fa fa-bath','fa fa-car','fa fa-car','fa fa-bell-o','fa fa-bell-o','fa fa-bug','fa fa-bug','fa fa-bomb','fa fa-bomb','fa fa-university','fa fa-university','fa fa-key','fa fa-key'];
 var memoryValues = [];
 var memoryTileIds = [];
 var tilesFlipped = 0;
@@ -40,8 +40,7 @@ function memoryFlipTile(tile, val){
     if(tile.innerHTML == '' && memoryValues.length < 2){
         tile.style.background = '#00BCC0';
         tile.style.transition = 'background 0.1s ease-in 0s';
-        
-        /*tile.style.background = '#00BCC0';*/
+        val = '<span><i class="'+val+'" aria-hidden="true" style="color:#fff;"></i></span>';
         tile.innerHTML = val;
         if(memoryValues.length == 0){
             memoryValues.push(val);
