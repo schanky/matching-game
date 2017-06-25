@@ -78,7 +78,18 @@ h1{
     font-size: 2em;
     cursor: pointer;
     text-align: center;
+    vertical-align: middle;
+    align-items: center;
+    justify-content: center;
 }
+
+/*
+.tile_content{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    vertical-align: middle;
+}*/
 /*
 @media all and (max-width: 450px) {
     #memory_board > div {
