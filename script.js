@@ -39,6 +39,9 @@ function newBoard(){
 function memoryFlipTile(tile, val){
     if(tile.innerHTML == '' && memoryValues.length < 2){
         tile.style.background = '#00BCC0';
+        tile.style.transition = 'background 0.1s ease-in 0s';
+        
+        /*tile.style.background = '#00BCC0';*/
         tile.innerHTML = val;
         if(memoryValues.length == 0){
             memoryValues.push(val);

@@ -53,6 +53,9 @@ h1{
     max-height: 450px;
     padding: 0.5em;
     margin: 0 auto;
+    -webkit-box-shadow: 5px 5px 11px 3px rgba(149,149,158,1);
+    -moz-box-shadow: 5px 5px 11px 3px rgba(149,149,158,1);
+    box-shadow: 5px 5px 11px 3px rgba(149,149,158,1);  
 }
 
 #container > header{
