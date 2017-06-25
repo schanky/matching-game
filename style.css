@@ -41,7 +41,11 @@ h1{
     flex-wrap: wrap;
     justify-content: space-around;
     /*position: relative;*/
-    background: #00BCC0;
+    background: #00CDB9; /* For browsers that do not support gradients */    
+    background: -webkit-linear-gradient(left top, #00CDB9, #AB7FCF); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(bottom right, #00CDB9, #AB7FCF); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(bottom right, #00CDB9, #AB7FCF); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(to bottom right, #00CDB9, #AB7FCF);
     border-radius: 0.5em;
     width: 60%;
     max-width: 450px;
