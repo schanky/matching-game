@@ -1,8 +1,13 @@
  //Initialize variables
 var memoryArray = ['fa fa-motorcycle','fa fa-motorcycle','fa fa-bath','fa fa-bath','fa fa-car','fa fa-car','fa fa-bell-o','fa fa-bell-o','fa fa-bug','fa fa-bug','fa fa-bomb','fa fa-bomb','fa fa-university','fa fa-university','fa fa-key','fa fa-key'];
+//Temporary array keeping track of tile values being clicked; emptied after every turn
 var memoryValues = [];
+//Temporary array keeping track of tile ids being clicked; emptied after every turn
 var memoryTileIds = [];
+//Variable keeping track of successfully opened tile pairs
 var tilesFlipped = 0;
+//Variable keeping track of number of turns made
+var turns = 0;
 
 //Create shuffle method and assign to Array objects
 function randomizeCardTypes(aCardArray) {
@@ -32,6 +37,9 @@ function newBoard(){
     for(var i=0; i < memoryArray.length; i++){
         output += '<div id="tile_'+i+'" onclick="memoryFlipTile(this,\''+memoryArray[i]+'\')"></div>';
     }
+    //autoRefreshDiv("#stars", );
+    setInterval('showPerformance(turns)', 1000);
+    // showPerformance(turns);
     document.getElementById('memory_board').innerHTML = output;
 }
 
@@ -48,8 +56,11 @@ function memoryFlipTile(tile, val){
         }else if(memoryValues.length == 1){
             memoryValues.push(val);
             memoryTileIds.push(tile.id);
+            //If the last two flipped cards are the same
             if(memoryValues[0] == memoryValues[1]){
                 tilesFlipped += 2;
+                turns += 1;
+                console.log("Successful turn! We add one to turns, to a total of: "+turns);
                 //Empty both arrays
                 memoryValues = [];
                 memoryTileIds = [];
@@ -59,15 +70,17 @@ function memoryFlipTile(tile, val){
                     document.getElementById('memory_board').innerHTML = "";
                     newBoard();
                 }
+            //If the last two flipped cards are not the same, flip them back over
             } else {
                 function flipToBack(){
-                    //If the tiles are not the same flip them back over
                     var firstTile =document.getElementById(memoryTileIds[0]);
                     var secondTile = document.getElementById(memoryTileIds[1]);
                     firstTile.style.background = '#2B3E4A';
                     firstTile.innerHTML = '';
                     secondTile.style.background = '#2B3E4A';
                     secondTile.innerHTML = '';
+                    turns += 1;
+                    console.log("Unsuccessful turn! Adding one to turns to a total of: "+turns);
                     //Empty both arrays
                     memoryValues = [];
                     memoryTileIds = [];
@@ -76,4 +89,29 @@ function memoryFlipTile(tile, val){
             }
         }
     }
+}
+
+//Manage player performance
+function showPerformance(turns) {
+    if (turns <= 10) {
+        //show three stars
+        document.getElementById('stars').innerHTML = '<ul><li><i class="fa fa-star" aria-hidden="true"></i></li><li><i class="fa fa-star" aria-hidden="true"></i></li><li><i class="fa fa-star" aria-hidden="true"></i></li></ul>';
+        console.log("Turns equals " + turns + " so we are showing three stars.");
+    }
+    else if (turns > 10 && turns <= 14) {
+        //show two stars and one empty star
+        document.getElementById('stars').innerHTML = '<ul><li><i class="fa fa-star-o" aria-hidden="true"></i></li><li><i class="fa fa-star" aria-hidden="true"></i></li><li><i class="fa fa-star" aria-hidden="true"></i></li></ul>';
+        console.log("Turns equals " + turns + " so we are showing two stars.");
+    }
+    else {
+        //show one star and two empty stars
+        var insertStars = document.getElementById('stars').innerHTML = '<ul><li><i class="fa fa-star-o" aria-hidden="true"></i></li><li><i class="fa fa-star-o" aria-hidden="true"></i></li><li><i class="fa fa-star" aria-hidden="true"></i></li></ul>';
+        console.log("Turns equals " + turns + " so we are showing one star.");
+    }
+}
+
+//Refresh game data div every second
+function autoRefreshDiv(divName, functionName) {
+    $(divName).load(functionName);
+    console.log("Refreshed game data!");
 }
