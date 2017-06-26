@@ -95,21 +95,62 @@ h1{
     justify-content: center;
     vertical-align: middle;
 }*/
-/*
-@media all and (max-width: 450px) {
+
+@media all and (max-width: 750px) {
+     #memory_board{
+        flex-direction: column;
+        /*max-width: 90%;
+        max-height: 350px;
+        max-width: 90%;*/
+    }
+
+    #game_data{
+        width: 80%;
+    }
+    
     #memory_board > div {
-    width: 3.5em;
-    height: 3.5em;
+        flex-grow: 0;
+        /*width: 2em;
+        height: 2em;*/
   }
 }
 
-@media all and (max-width: 400px) {
+@media all and (max-width: 450px) {
+     #memory_board{
+        flex-direction: column;
+        /*max-width: 90%;
+        max-height: 350px;
+        max-width: 90%;*/
+        
+    }
+
+    #game_data{
+        width: 80%;
+    }
+    
     #memory_board > div {
-    width: 0.2em;
-    height: 0.2em;
-    border-radius: 0.1em;
-    justify-content: center;
-    text-align: center;
+        flex-shrink: 0;
+        /*width: 2em;
+        height: 2em;*/
   }
 }
-*/
+
+@media all and (max-width: 360px) {
+    #memory_board{
+        flex-direction: column-reverse;
+        /*max-width: 90%;
+        max-height: 350px;
+        max-width: 90%;*/
+        
+    }
+
+    #game_data{
+        width: 80%;
+    }
+    
+    #memory_board > div {
+        flex-shrink: 0;
+        /*width: 2em;
+        height: 2em;*/
+  }
+}

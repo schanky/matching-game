@@ -132,7 +132,7 @@ function showPerformance(turns) {
 
 //start timer countdown (not completely functional yet)
 //TODO: implement countdown option
-var time = 60 * 5;
+var time = 60 * 1;
 var display = document.querySelector('#clock');
 function startTimer(duration, display) {
     var timer = duration, minutes, seconds;
