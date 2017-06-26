@@ -11,14 +11,14 @@
     
     <script src="script.js"></script>
 </head>
-<body id="container">
+<body id="container" onload="countTimer();">
     <header>
         <h1> Matching game </h1>
         <section id="game_data">
             <div id="stars" onload="function showPerformance(turns);">
             </div>
             <div id="moves">0 Moves</div>
-            <div id="clock">1:23:22</div>
+            <div id="clock">00:00</div>
             <div id="reload" onclick="setTimeout(function() {if(confirm('Would you like to restart the game?')){location.reload(true);};}, 200)"><i class="fa fa-refresh" aria-hidden="true"></i></div>
         </section>
     </header>

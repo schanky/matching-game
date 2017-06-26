@@ -1,5 +1,9 @@
- //Initialize variables
+//Initialize variables easy difficulty
 var memoryArray = ['fa fa-motorcycle','fa fa-motorcycle','fa fa-bath','fa fa-bath','fa fa-car','fa fa-car','fa fa-bell-o','fa fa-bell-o','fa fa-bug','fa fa-bug','fa fa-bomb','fa fa-bomb','fa fa-university','fa fa-university','fa fa-key','fa fa-key'];
+//Initialize variables medium difficulty
+//var memoryArrayMedium = ['fa fa-motorcycle', 'fa fa-motorcycle', 'fa fa-bath', 'fa fa-bath', 'fa fa-car', 'fa fa-car', 'fa fa-bell-o', 'fa fa-bell-o', 'fa fa-bug', 'fa fa-bug', 'fa fa-bomb', 'fa fa-bomb', 'fa fa-university', 'fa fa-university', 'fa fa-key', 'fa fa-key'];
+//Initialize variables hard difficulty
+//var memoryArrayHard = ['fa fa-motorcycle', 'fa fa-motorcycle', 'fa fa-bath', 'fa fa-bath', 'fa fa-car', 'fa fa-car', 'fa fa-bell-o', 'fa fa-bell-o', 'fa fa-bug', 'fa fa-bug', 'fa fa-bomb', 'fa fa-bomb', 'fa fa-university', 'fa fa-university', 'fa fa-key', 'fa fa-key'];
 //Temporary array keeping track of tile values being clicked; emptied after every turn
 var memoryValues = [];
 //Temporary array keeping track of tile ids being clicked; emptied after every turn
@@ -8,6 +12,8 @@ var memoryTileIds = [];
 var tilesFlipped = 0;
 //Variable keeping track of number of turns made
 var turns = 0;
+//Variable showing player performance in terms of stars
+var stars = 3;
 
 //Create shuffle method and assign to Array objects
 function randomizeCardTypes(aCardArray) {
@@ -34,6 +40,8 @@ function newBoard(){
     tilesFlipped = 0;
     var output = '';
     turns = 0;
+    stars = 3;
+    countTimer();
     randomizeCardTypes(memoryArray);
     for(var i=0; i < memoryArray.length; i++){
         output += '<div id="tile_'+i+'" onclick="memoryFlipTile(this,\''+memoryArray[i]+'\')"></div>';
@@ -64,10 +72,15 @@ function memoryFlipTile(tile, val){
                 memoryValues = [];
                 memoryTileIds = [];
                 //Check to see if whole board is cleared
-                if(tilesFlipped == memoryArray.length){
-                    var finished = confirm("Board cleared. Would you like to play again or stay for a bit on this screen and revel in your awesomeness?");
+                if (tilesFlipped == memoryArray.length) {
+                    clearInterval(timerVar);
+                    var achievedTime = clock.innerHTML;
+                    console.log(achievedTime);
+                    console.log(stars);
+                    var finished = confirm("Board cleared in "+achievedTime+" and with "+stars+" stars. Would you like to play again or stay for a bit on this screen and revel in your awesomeness?");
                     if (finished) {
                         document.getElementById('memory_board').innerHTML = "";
+                        location.reload(true);
                         newBoard();
                     }
                 }
@@ -99,24 +112,57 @@ function showPerformance(turns) {
         document.getElementById('stars').innerHTML = '<ul><li><i class="fa fa-star" aria-hidden="true"></i></li><li><i class="fa fa-star" aria-hidden="true"></i></li><li><i class="fa fa-star" aria-hidden="true"></i></li></ul>';
         document.getElementById('moves').innerHTML = turns +' Moves';
         console.log("Turns equals " + turns + " so we are showing three stars.");
+        stars = 3;
     }
     else if (turns > 10 && turns <= 14) {
         //show two stars and one empty star
         document.getElementById('stars').innerHTML = '<ul><li><i class="fa fa-star-o" aria-hidden="true"></i></li><li><i class="fa fa-star" aria-hidden="true"></i></li><li><i class="fa fa-star" aria-hidden="true"></i></li></ul>';
         document.getElementById('moves').innerHTML = turns + ' Moves';
         console.log("Turns equals " + turns + " so we are showing two stars.");
+        stars = 2;
     }
     else {
         //show one star and two empty stars
         var insertStars = document.getElementById('stars').innerHTML = '<ul><li><i class="fa fa-star-o" aria-hidden="true"></i></li><li><i class="fa fa-star-o" aria-hidden="true"></i></li><li><i class="fa fa-star" aria-hidden="true"></i></li></ul>';
         document.getElementById('moves').innerHTML = turns + ' Moves';
         console.log("Turns equals " + turns + " so we are showing one star.");
+        stars = 1;
     }
 }
 
-//Show timer
-function showTimer() {
-    
+//start timer countdown (not completely functional yet)
+//TODO: implement countdown option
+var time = 60 * 5;
+var display = document.querySelector('#clock');
+function startTimer(duration, display) {
+    var timer = duration, minutes, seconds;
+    setInterval(function () {
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = minutes + ":" + seconds;
+
+        if (--timer < 0) {
+            timer = duration;
+        }
+        console.log(display.textContent);
+    }, 1000);
+}
+
+//Regular time counter
+var timerVar = setInterval(countTimer, 1000);
+var totalSeconds = 0;
+function countTimer() {
+    ++totalSeconds;
+    var hour = Math.floor(totalSeconds /3600);
+    var minute = Math.floor((totalSeconds - hour*3600)/60);
+    var seconds = totalSeconds - (hour*3600 + minute*60);
+    var clock = hour + ":" + minute + ":" + seconds;
+    document.getElementById("clock").innerHTML = clock;// to add in case of required pause or stop functionlity + ' ' +'<i class="fa fa-pause-circle-o" aria-hidden="true" onclick="clearInterval(timerVar);"></i>'
+    return clock;
 }
 
 //Refresh game data div every second
