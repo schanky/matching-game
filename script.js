@@ -33,6 +33,7 @@ function randomizeCardTypes(aCardArray) {
 function newBoard(){
     tilesFlipped = 0;
     var output = '';
+    turns = 0;
     randomizeCardTypes(memoryArray);
     for(var i=0; i < memoryArray.length; i++){
         output += '<div id="tile_'+i+'" onclick="memoryFlipTile(this,\''+memoryArray[i]+'\')"></div>';
@@ -64,9 +65,11 @@ function memoryFlipTile(tile, val){
                 memoryTileIds = [];
                 //Check to see if whole board is cleared
                 if(tilesFlipped == memoryArray.length){
-                    alert("Board cleared. Generating new board...");
-                    document.getElementById('memory_board').innerHTML = "";
-                    newBoard();
+                    var finished = confirm("Board cleared. Would you like to play again or stay for a bit on this screen and revel in your awesomeness?");
+                    if (finished) {
+                        document.getElementById('memory_board').innerHTML = "";
+                        newBoard();
+                    }
                 }
             //If the last two flipped cards are not the same, flip them back over
             } else {
@@ -94,18 +97,26 @@ function showPerformance(turns) {
     if (turns <= 10) {
         //show three stars
         document.getElementById('stars').innerHTML = '<ul><li><i class="fa fa-star" aria-hidden="true"></i></li><li><i class="fa fa-star" aria-hidden="true"></i></li><li><i class="fa fa-star" aria-hidden="true"></i></li></ul>';
+        document.getElementById('moves').innerHTML = turns +' Moves';
         console.log("Turns equals " + turns + " so we are showing three stars.");
     }
     else if (turns > 10 && turns <= 14) {
         //show two stars and one empty star
         document.getElementById('stars').innerHTML = '<ul><li><i class="fa fa-star-o" aria-hidden="true"></i></li><li><i class="fa fa-star" aria-hidden="true"></i></li><li><i class="fa fa-star" aria-hidden="true"></i></li></ul>';
+        document.getElementById('moves').innerHTML = turns + ' Moves';
         console.log("Turns equals " + turns + " so we are showing two stars.");
     }
     else {
         //show one star and two empty stars
         var insertStars = document.getElementById('stars').innerHTML = '<ul><li><i class="fa fa-star-o" aria-hidden="true"></i></li><li><i class="fa fa-star-o" aria-hidden="true"></i></li><li><i class="fa fa-star" aria-hidden="true"></i></li></ul>';
+        document.getElementById('moves').innerHTML = turns + ' Moves';
         console.log("Turns equals " + turns + " so we are showing one star.");
     }
+}
+
+//Show timer
+function showTimer() {
+    
 }
 
 //Refresh game data div every second
