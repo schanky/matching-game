@@ -37,9 +37,7 @@ function newBoard(){
     for(var i=0; i < memoryArray.length; i++){
         output += '<div id="tile_'+i+'" onclick="memoryFlipTile(this,\''+memoryArray[i]+'\')"></div>';
     }
-    //autoRefreshDiv("#stars", );
     setInterval('showPerformance(turns)', 1000);
-    // showPerformance(turns);
     document.getElementById('memory_board').innerHTML = output;
 }
 
