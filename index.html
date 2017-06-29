@@ -20,11 +20,11 @@
 	<link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon-180x180.png" />
     <script src="script.js"></script>
 </head>
-<body id="container" onload="countTimer();"><!--Hotseat mode: startTimer(60,document.querySelector('#clock'));-->
+<body id="container" onload="startTimer();"><!--Regular Mode: countTimer(); //Hotseat mode: startTimer(60,document.querySelector('#clock'));-->
     <header>
         <h1> Matching game </h1>
         <section id="game_data">
-            <div id="stars" onload="function showPerformance(turns);">
+            <div id="stars" onload="showPerformance(turns);">
             </div>
             <div id="moves">0 Moves</div>
             <div id="clock">00:00</div>
