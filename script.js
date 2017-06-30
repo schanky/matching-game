@@ -18,6 +18,7 @@ var stars = 3;
 var timerVar = setInterval(countTimer, 1000);
 var totalSeconds = 0;
 var startClock = true;
+var startClockOnPlayerClick = [];
 
 //Create shuffle method and assign to Array objects
 function randomizeCardTypes(aCardArray) {
@@ -47,7 +48,7 @@ function newBoard(){
     stars = 3;
     randomizeCardTypes(memoryArray);
     for(var i=0; i < memoryArray.length; i++){
-        output += '<div id="tile_'+i+'" onclick="memoryFlipTile(this,\''+memoryArray[i]+'\')"></div>';
+        output += '<div id="tile_'+i+'" onclick="memoryFlipTile(this,\''+memoryArray[i]+'\');"></div>';
     }
 	setInterval('showPerformance(turns)', 1000);
     document.getElementById('memory_board').innerHTML = output;
@@ -62,9 +63,11 @@ function memoryFlipTile(tile, val){
         tile.innerHTML = val;
         if(memoryValues.length == 0){
             memoryValues.push(val);
+			startClockOnPlayerClick.push(val);
             memoryTileIds.push(tile.id);
         }else if(memoryValues.length == 1){
             memoryValues.push(val);
+			
             memoryTileIds.push(tile.id);
             //If the last two flipped cards are the same
             if(memoryValues[0] == memoryValues[1]){
@@ -157,7 +160,7 @@ function startTimer(duration, display) {
 
 //Regular time counter
 function countTimer() {
-	if(startClock){
+	if(startClock && startClockOnPlayerClick.length > 0){
 		++totalSeconds;
 		var hour = Math.floor(totalSeconds /3600);
 		var minute = Math.floor((totalSeconds - hour*3600)/60);
