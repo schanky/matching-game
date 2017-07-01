@@ -54,6 +54,24 @@ function newBoard(){
     document.getElementById('memory_board').innerHTML = output;
 }
 
+//Reload the board after completing it
+function reloadBoard(){
+	document.getElementById('memory_board').innerHTML = "";
+    location.reload(true);
+    newBoard();
+}
+
+//Function to display modal
+function showModal(achievedTime, numberStars, numberMoves){
+	var modal = document.getElementById('display_performance').style.display = "block";
+	document.getElementById('modal-body').innerHTML = 'Board cleared in '+achievedTime+' and with '+numberStars+' stars. Also, you made '+numberMoves+' moves.';
+}
+
+//Close modal on click
+function closeModal(){
+	document.getElementById('display_performance').style.display = "none";
+}
+
 //Create flip tile function
 function memoryFlipTile(tile, val){
     if(tile.innerHTML == '' && memoryValues.length < 2){
@@ -67,7 +85,6 @@ function memoryFlipTile(tile, val){
             memoryTileIds.push(tile.id);
         }else if(memoryValues.length == 1){
             memoryValues.push(val);
-			
             memoryTileIds.push(tile.id);
             //If the last two flipped cards are the same
             if(memoryValues[0] == memoryValues[1]){
@@ -83,12 +100,16 @@ function memoryFlipTile(tile, val){
                     var achievedTime = clock.innerHTML;
                     console.log(achievedTime);
                     console.log(stars);
-                    var finished = confirm("Board cleared in "+achievedTime+" and with "+stars+" stars. Would you like to play again or stay for a bit on this screen and revel in your awesomeness?");
+					showModal(achievedTime,stars,turns);
+					/*If you only want an alert box to show, comment showModal function above out and uncomment block below*/
+					//document.getElementById('display_performance').style.display='block';
+					//var span = document.getElementById('close_modal');
+					/*var finished = confirm("Board cleared in "+achievedTime+" and with "+stars+" stars. Would you like to play again or stay for a bit on this screen and revel in your awesomeness?");
                     if (finished) {
-                        document.getElementById('memory_board').innerHTML = "";
+						document.getElementById('memory_board').innerHTML = "";
                         location.reload(true);
                         newBoard();
-                    }
+                    }*/
                 }
             //If the last two flipped cards are not the same, flip them back over
             } else {
