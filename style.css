@@ -127,16 +127,20 @@ h1{
 /* The modal close button */
 
 .modal-header {
+	font-family: 'Quicksand', sans-serif;
     padding: 2px 16px;
-    background-color: #2B3E4A;
+    background-color: #00CDB9;
     color: white;
 }
 
-.modal-body {padding: 2px 16px;}
+#modal-body {
+	font-family: 'Yanone Kaffeesatz', sans-serif;
+	padding: 2px 16px;
+}
 
 .modal-footer {
     padding: 2px 16px;
-    background-color: #2B3E4A;
+    background-color: #00CDB9;
     color: white;
 }
 
