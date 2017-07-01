@@ -126,23 +126,55 @@ h1{
 
 /* The modal close button */
 
-.modal-header {
+#modal-header {
 	font-family: 'Quicksand', sans-serif;
-    padding: 2px 16px;
+    padding: 0.5em 0.5em;
     background-color: #00CDB9;
     color: white;
 }
 
 #modal-body {
 	font-family: 'Yanone Kaffeesatz', sans-serif;
-	padding: 2px 16px;
+	padding: 1em 1em;
 }
 
-.modal-footer {
-    padding: 2px 16px;
+#modal-footer {
+    padding: 1em 1em;
     background-color: #00CDB9;
     color: white;
 }
+
+.modal_footer_button{
+	color: #666;
+	background-color: #eee;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	font-size: 12px;
+	padding: 10px 30px;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border: 1px solid rgba(0,0,0,0.3);
+	border-bottom-width: 3px; 	
+}
+
+.modal_footer_button:hover{
+	background-color: #e3e3e3;
+	border-color: rgba(0,0,0,0.5);
+	cursor: pointer;
+}
+
+.blue_button {
+	background-color: #699DB6;
+	border-color: rgba(0,0,0,0.3);
+	text-shadow: 0 1px 0 rgba(0,0,0,0.5);
+	color: #FFF;
+}
+
+.blue_button:hover {
+		background-color: #4F87A2;
+		border-color: rgba(0,0,0,0.5);
+	}
 
 /* Add modal animation */
 @-webkit-keyframes animatetop {

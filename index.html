@@ -21,19 +21,19 @@
     <script src="script.js"></script>
 </head>
 <body id="container" onload=""><!--Regular Mode: countTimer(); //Hotseat mode: startTimer(60,document.querySelector('#clock'));-->
-    <!-- Modal to display information at the end of the game -->
+ 	<!-- Modal to display information at the end of the game -->
 	<section id="display_performance" class="modal">
 	  <!-- Modal content -->
 	  <div class="modal-content">
-		<div class="modal-header">
+		<div id="modal-header">
 		  <!--<span id="close_modal">&times;</span>-->
 		  <h2>Success! Here are your stats:</h2>
 		</div>
 		<div id="modal-body">
 		</div>
-		<div class="modal-footer">
-		<button onclick="reloadBoard();" class="modal_footer_button">Restart</button>
-		<button onclick="closeModal();" class="modal_footer_button">Close</button>
+		<div id="modal-footer">
+		<button onclick="reloadBoard();" class="modal_footer_button blue_button">New Game</button>
+		<button onclick="closeModal();" class="modal_footer_button">Stay Here for a bit</button>
 		</div>
 	  </div>
 	</section>
