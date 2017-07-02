@@ -179,8 +179,6 @@ function memoryFlipTile(tile, val){
                 if (tilesFlipped == memoryArray.length) {
                     clearInterval(timerVar);
                     var achievedTime = clock.innerHTML;
-                    console.log(achievedTime);
-                    console.log(stars);
 					showModal(achievedTime,stars,turns);
                 }
             //If the last two flipped cards are not the same, flip them back over
