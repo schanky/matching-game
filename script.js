@@ -137,6 +137,22 @@ function addOrRemoveClass(el1,el2){
 	}
 }
 
+//Flip boards back if there is no match
+function flipToBack(){
+	var firstTile = document.getElementById(memoryTileIds[0]);
+	var secondTile = document.getElementById(memoryTileIds[1]);
+	addOrRemoveClass(firstTile,secondTile);
+	firstTile.style.background = '#2B3E4A';
+	firstTile.innerHTML = '';
+	secondTile.style.background = '#2B3E4A';
+	secondTile.innerHTML = '';
+	turns += 1;
+	//console.log("Unsuccessful turn! Adding one to turns to a total of: "+turns);
+	//Empty both arrays
+	memoryValues = [];
+	memoryTileIds = [];
+}
+
 //Create flip tile function
 function memoryFlipTile(tile, val){
     if(tile.innerHTML == '' && memoryValues.length < 2){
@@ -156,7 +172,6 @@ function memoryFlipTile(tile, val){
                 tilesFlipped += 2;
                 turns += 1;
 				animateCorrect(memoryTileIds[0],memoryTileIds[1]);
-                //console.log("Successful turn! We add one to turns, to a total of: "+turns);
                 //Empty both arrays
                 memoryValues = [];
                 memoryTileIds = [];
@@ -170,20 +185,6 @@ function memoryFlipTile(tile, val){
                 }
             //If the last two flipped cards are not the same, flip them back over
             } else {
-                function flipToBack(){
-					var firstTile = document.getElementById(memoryTileIds[0]);
-                    var secondTile = document.getElementById(memoryTileIds[1]);
-					addOrRemoveClass(firstTile,secondTile);
-                    firstTile.style.background = '#2B3E4A';
-                    firstTile.innerHTML = '';
-                    secondTile.style.background = '#2B3E4A';
-                    secondTile.innerHTML = '';
-                    turns += 1;
-                    //console.log("Unsuccessful turn! Adding one to turns to a total of: "+turns);
-                    //Empty both arrays
-                    memoryValues = [];
-                    memoryTileIds = [];
-                }
                 setTimeout(flipToBack, 700);
             }
         }
@@ -250,9 +251,3 @@ function countTimer() {
 		return clock;
 	}
 }
-
-//Refresh game data div every second
-/*function autoRefreshDiv(divName, functionName) {
-    $(divName).load(functionName);
-    console.log("Refreshed game data!");
-}*/
