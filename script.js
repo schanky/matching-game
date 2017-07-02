@@ -50,7 +50,7 @@ function newBoard(){
     for(var i=0; i < memoryArray.length; i++){
         output += '<div id="tile_'+i+'" onclick="memoryFlipTile(this,\''+memoryArray[i]+'\');"></div>';
     }
-	setInterval('showPerformance(turns)', 1000);
+	setInterval('showPerformance(turns)', 100);
     document.getElementById('memory_board').innerHTML = output;
 }
 
@@ -72,6 +72,71 @@ function closeModal(){
 	document.getElementById('display_performance').style.display = "none";
 }
 
+//Create function for correct card animation
+function animateCorrect(tileId1, tileId2){
+	document.getElementById(tileId1).className += ' tile-correct';
+	document.getElementById(tileId2).className += ' tile-correct';
+}
+
+//Create function for wrong card animation
+function animateWrong(tileId1, tileId2){
+	document.getElementById(tileId1).className += ' tile-wrong';
+	document.getElementById(tileId2).className += ' tile-wrong';
+}
+
+//Check if an element has a certain class
+function hasClass(el, className) {
+  if (el.classList)
+    return el.classList.contains(className)
+  else
+    return !!el.className.match(new RegExp('(\\s|^)' + className + '(\\s|$)'))
+}
+
+//Add a class to an element
+function addClass(el, className) {
+  if (el.classList)
+    el.classList.add(className)
+  else if (!hasClass(el, className)) el.className += " " + className
+}
+
+//Remove class from an element
+function removeClass(el, className) {
+  if (el.classList)
+    el.classList.remove(className)
+  else if (hasClass(el, className)) {
+    var reg = new RegExp('(\\s|^)' + className + '(\\s|$)')
+    el.className=el.className.replace(reg, ' ')
+  }
+}
+
+//Compare the classes of two elements and add or remove classes accordingly
+function addOrRemoveClass(el1,el2){
+	if(hasClass(el1, 'tile-wrong')){
+		addClass(el1,'tile-wrong');
+		setTimeout(function() {
+		removeClass(el1,'tile-wrong');
+		}, 1000);
+		console.log("Removed and added tile-wrong to first tile");
+	} else if (hasClass(el2, 'tile-wrong')) {
+		addClass(el2,'tile-wrong');
+		setTimeout(function() {
+		removeClass(el2,'tile-wrong');
+		}, 1000);
+		console.log("Removed and added tile-wrong to second tile");
+	} else {
+		addClass(el1,'tile-wrong');
+		setTimeout(function() {
+		removeClass(el1,'tile-wrong');
+		}, 1000);
+		
+		addClass(el2,'tile-wrong');
+		setTimeout(function() {
+		removeClass(el2,'tile-wrong');
+		}, 1000);
+		console.log("Added tile-wrong to first and second tile");
+	}
+}
+
 //Create flip tile function
 function memoryFlipTile(tile, val){
     if(tile.innerHTML == '' && memoryValues.length < 2){
@@ -90,7 +155,8 @@ function memoryFlipTile(tile, val){
             if(memoryValues[0] == memoryValues[1]){
                 tilesFlipped += 2;
                 turns += 1;
-                console.log("Successful turn! We add one to turns, to a total of: "+turns);
+				animateCorrect(memoryTileIds[0],memoryTileIds[1]);
+                //console.log("Successful turn! We add one to turns, to a total of: "+turns);
                 //Empty both arrays
                 memoryValues = [];
                 memoryTileIds = [];
@@ -101,27 +167,19 @@ function memoryFlipTile(tile, val){
                     console.log(achievedTime);
                     console.log(stars);
 					showModal(achievedTime,stars,turns);
-					/*If you only want an alert box to show, comment showModal function above out and uncomment block below*/
-					//document.getElementById('display_performance').style.display='block';
-					//var span = document.getElementById('close_modal');
-					/*var finished = confirm("Board cleared in "+achievedTime+" and with "+stars+" stars. Would you like to play again or stay for a bit on this screen and revel in your awesomeness?");
-                    if (finished) {
-						document.getElementById('memory_board').innerHTML = "";
-                        location.reload(true);
-                        newBoard();
-                    }*/
                 }
             //If the last two flipped cards are not the same, flip them back over
             } else {
                 function flipToBack(){
-                    var firstTile =document.getElementById(memoryTileIds[0]);
+					var firstTile = document.getElementById(memoryTileIds[0]);
                     var secondTile = document.getElementById(memoryTileIds[1]);
+					addOrRemoveClass(firstTile,secondTile);
                     firstTile.style.background = '#2B3E4A';
                     firstTile.innerHTML = '';
                     secondTile.style.background = '#2B3E4A';
                     secondTile.innerHTML = '';
                     turns += 1;
-                    console.log("Unsuccessful turn! Adding one to turns to a total of: "+turns);
+                    //console.log("Unsuccessful turn! Adding one to turns to a total of: "+turns);
                     //Empty both arrays
                     memoryValues = [];
                     memoryTileIds = [];
@@ -138,21 +196,21 @@ function showPerformance(turns) {
         //show three stars
         document.getElementById('stars').innerHTML = '<ul><li><i class="fa fa-star" aria-hidden="true"></i></li><li><i class="fa fa-star" aria-hidden="true"></i></li><li><i class="fa fa-star" aria-hidden="true"></i></li></ul>';
         document.getElementById('moves').innerHTML = turns +' Moves';
-        console.log("Turns equals " + turns + " so we are showing three stars.");
+        //console.log("Turns equals " + turns + " so we are showing three stars.");
         stars = 3;
     }
     else if (turns > 10 && turns <= 14) {
         //show two stars and one empty star
         document.getElementById('stars').innerHTML = '<ul><li><i class="fa fa-star-o" aria-hidden="true"></i></li><li><i class="fa fa-star" aria-hidden="true"></i></li><li><i class="fa fa-star" aria-hidden="true"></i></li></ul>';
         document.getElementById('moves').innerHTML = turns + ' Moves';
-        console.log("Turns equals " + turns + " so we are showing two stars.");
+        //console.log("Turns equals " + turns + " so we are showing two stars.");
         stars = 2;
     }
     else {
         //show one star and two empty stars
         var insertStars = document.getElementById('stars').innerHTML = '<ul><li><i class="fa fa-star-o" aria-hidden="true"></i></li><li><i class="fa fa-star-o" aria-hidden="true"></i></li><li><i class="fa fa-star" aria-hidden="true"></i></li></ul>';
         document.getElementById('moves').innerHTML = turns + ' Moves';
-        console.log("Turns equals " + turns + " so we are showing one star.");
+        //console.log("Turns equals " + turns + " so we are showing one star.");
         stars = 1;
     }
 }
@@ -188,7 +246,7 @@ function countTimer() {
 		var seconds = totalSeconds - (hour*3600 + minute*60).toFixed(2);
 		var clock = minute + ":" + seconds; //To add if hours needed: hour + ":" +
 		document.getElementById("clock").innerHTML = clock;// to add in case of required pause or stop functionlity + ' ' +'<i class="fa fa-pause-circle-o" aria-hidden="true" onclick="clearInterval(timerVar);"></i>'
-		console.log('countTimer function ran.');
+		//console.log('countTimer function ran.');
 		return clock;
 	}
 }
