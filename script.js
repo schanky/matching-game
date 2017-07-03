@@ -1,9 +1,11 @@
-//Initialize variables easy difficulty
+//Initialize variables regular difficulty
 var memoryArrayEasy = ['fa fa-motorcycle','fa fa-motorcycle','fa fa-bath','fa fa-bath','fa fa-car','fa fa-car','fa fa-bell-o','fa fa-bell-o','fa fa-bug','fa fa-bug','fa fa-bomb','fa fa-bomb','fa fa-university','fa fa-university','fa fa-key','fa fa-key'];
-//Initialize variables medium difficulty
-var memoryArrayMedium = ['fa fa-handshake-o', 'fa fa-handshake-o', 'fa fa-hand-lizard-o', 'fa fa-hand-lizard-o', 'fa fa-hand-scissors-o', 'fa fa-hand-scissors-o', 'fa fa-hand-o-left', 'fa fa-hand-o-left', 'fa fa-hand-o-right', 'fa fa-hand-o-right', 'fa fa-hand-peace-o', 'fa fa-hand-peace-o', 'fa fa-hand-spock-o', 'fa fa-hand-spock-o', 'fa fa-hand-paper-o', 'fa fa-hand-paper-o'];
+//Initialize variables touchy feely difficulty
+var memoryArrayTouchy = ['fa fa-handshake-o', 'fa fa-handshake-o', 'fa fa-hand-lizard-o', 'fa fa-hand-lizard-o', 'fa fa-hand-scissors-o', 'fa fa-hand-scissors-o', 'fa fa-hand-o-left', 'fa fa-hand-o-left', 'fa fa-hand-o-right', 'fa fa-hand-o-right', 'fa fa-hand-peace-o', 'fa fa-hand-peace-o', 'fa fa-hand-spock-o', 'fa fa-hand-spock-o', 'fa fa-hand-paper-o', 'fa fa-hand-paper-o'];
+//Initialize variables marriage wars difficulty
+var memoryArrayMarriage = ['fa fa-mars-stroke', 'fa fa-mars-stroke', 'fa fa-mars-stroke-h', 'fa fa-mars-stroke-h', 'fa fa-mars-stroke-v', 'fa fa-mars-stroke-v', 'fa fa-mercury', 'fa fa-mercury', 'fa fa-venus-mars', 'fa fa-venus-mars', 'fa fa-mars-double', 'fa fa-mars-double', 'fa fa-neuter', 'fa fa-neuter', 'fa fa-transgender', 'fa fa-transgender'];
 //Initialize variables hard difficulty
-var memoryArrayHard = ['fa fa-motorcycle', 'fa fa-motorcycle', 'fa fa-bath', 'fa fa-bath', 'fa fa-car', 'fa fa-car', 'fa fa-bell-o', 'fa fa-bell-o', 'fa fa-bug', 'fa fa-bug', 'fa fa-bomb', 'fa fa-bomb', 'fa fa-university', 'fa fa-university', 'fa fa-key', 'fa fa-key'];
+var memoryArrayOmg = ['fa fa-motorcycle', 'fa fa-motorcycle', 'fa fa-bath', 'fa fa-bath', 'fa fa-car', 'fa fa-car', 'fa fa-bell-o', 'fa fa-bell-o', 'fa fa-bug', 'fa fa-bug', 'fa fa-bomb', 'fa fa-bomb', 'fa fa-university', 'fa fa-university', 'fa fa-key', 'fa fa-key'];
 //Temporary array keeping track of tile values being clicked; emptied after every turn
 var memoryValues = [];
 //Temporary array keeping track of tile ids being clicked; emptied after every turn
@@ -19,13 +21,14 @@ var timerVar = setInterval(countTimer, 1000);
 var totalSeconds = 0;
 var startClock = true;
 var startClockOnPlayerClick = [];
-
+//Save game difficulty in a variable
+var gameDifficulty = getGameMode();
 
 //Determine game mode
 function getGameMode() {
     var gameDifficulty = document.getElementById("game-options").value;
     document.getElementById("show-difficulty").innerHTML = gameDifficulty;
-	console.log(gameDifficulty);
+	console.log('Game difficulty is defined as: '+gameDifficulty);
 	return gameDifficulty;
 }
 
@@ -53,10 +56,12 @@ function randomizeCardTypes(aCardArray) {
 function determineMemoryArray(gameMode){
 	if(gameMode == 'regular'){
 		memoryArray = memoryArrayEasy;
-	} else if(gameMode == 'hardcore'){
-		memoryArray = memoryArrayMedium;
-	} else {
-		memoryArray = memoryArrayHard;// TODO: add OMG play mode
+	} else if(gameMode == 'touchy-feely'){
+		memoryArray = memoryArrayTouchy;
+	} else if(gameMode == 'marriage-wars') {
+		memoryArray = memoryArrayMarriage;
+	} else{
+		memoryArray = memoryArrayOmg;// TODO: add OMG play mode
 	}
 	return memoryArray;
 }
@@ -78,6 +83,7 @@ function newBoard(){
     }
 	setInterval('showPerformance(turns)', 100);
     document.getElementById('memory_board').innerHTML = output;
+	return gameMode;
 }
 
 //Reload the board after completing it
@@ -88,9 +94,9 @@ function reloadBoard(){
 }
 
 //Function to display modal
-function showModal(achievedTime, numberStars, numberMoves){
+function showModal(achievedTime, numberStars, numberMoves, gameDifficulty){
 	var modal = document.getElementById('display_performance').style.display = "block";
-	document.getElementById('modal-body').innerHTML = 'Board cleared in '+achievedTime+' and with '+numberStars+' stars. Also, you made '+numberMoves+' moves.';
+	document.getElementById('modal-body').innerHTML = 'Board cleared in '+achievedTime+' and with '+numberStars+' stars in '+gameDifficulty+' difficulty. Also, you made '+numberMoves+' moves.';
 }
 
 //Close player performance modal on click
@@ -210,7 +216,8 @@ function memoryFlipTile(tile, val){
                 if (tilesFlipped == memoryArray.length) {
                     clearInterval(timerVar);
                     var achievedTime = clock.innerHTML;
-					showModal(achievedTime,stars,turns);
+					var gameDifficulty = document.getElementById('show-difficulty').innerHTML;
+					showModal(achievedTime,stars,turns,gameDifficulty);
                 }
             //If the last two flipped cards are not the same, flip them back over
             } else {
