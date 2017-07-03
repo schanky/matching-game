@@ -24,7 +24,9 @@ var startClockOnPlayerClick = [];
 //Save game difficulty in a variable
 var gameDifficulty = getGameMode();
 
-//Determine game mode
+/**
+ * @description Determines game mode
+ */
 function getGameMode() {
     var gameDifficulty = document.getElementById("game-options").value;
     document.getElementById("show-difficulty").innerHTML = gameDifficulty;
@@ -32,7 +34,10 @@ function getGameMode() {
 	return gameDifficulty;
 }
 
-//Create shuffle method and assign to Array objects
+/**
+ * @description Method used to shuffle an array of objects randomly.
+ * @param {array} aCardArraz - any of the available arrays related to the different game modes
+ */
 function randomizeCardTypes(aCardArray) {
     var currentIndex = aCardArray.length, temporaryValue, randomIndex;
 
@@ -52,7 +57,11 @@ function randomizeCardTypes(aCardArray) {
     return aCardArray;
 }
 
-//Determine which symbol array will be used
+/**
+ * @description Determines which array will be used in the shuffle function
+ * Depends on chosen game mode on introduction screen.
+ * @param {string} gameMode - This is the chosen game mode from the introduction screen
+ */
 function determineMemoryArray(gameMode){
 	if(gameMode == 'regular'){
 		memoryArray = memoryArrayEasy;
@@ -66,7 +75,10 @@ function determineMemoryArray(gameMode){
 	return memoryArray;
 }
 
-//Create new board
+/**
+ * @description The main function being called at the end of the html page.
+ * It generates a new board based on the chosen game mode and array respectively.
+ */
 function newBoard(){
     tilesFlipped = 0;
     var output = '';
@@ -86,42 +98,68 @@ function newBoard(){
 	return gameMode;
 }
 
-//Reload the board after completing it
+/**
+ * @description Used to empty current board upon completion, as well as generating a new board.
+ */
 function reloadBoard(){
 	document.getElementById('memory_board').innerHTML = "";
     location.reload(true);
     newBoard();
 }
 
-//Function to display modal
+/**
+ * @description Used to display a modal based on use case.
+ * Use case 1: The user is greeted with an introduction screen, allowing them to choose a game mode.
+ * Use case 2: The user completes a game and is shown their performance in a modal.
+ * @param {string} achievedTime - The time it took the user to complete the session.
+ * @param {int} numberStars - The amount of remaining stars upon session completion.
+ * @param {int} numberMoves - The amount of moves the user took in order to complete the game.
+ * @param {string} gameDifficulty - The chosen difficulty at game start.
+ */
 function showModal(achievedTime, numberStars, numberMoves, gameDifficulty){
 	var modal = document.getElementById('display_performance').style.display = "block";
 	document.getElementById('modal-body').innerHTML = 'Board cleared in '+achievedTime+' and with '+numberStars+' stars on '+gameDifficulty+' difficulty. You made '+numberMoves+' moves.';
 }
 
-//Close player performance modal on click
+/**
+ * @description Close modal after displaying gamer performance in current session
+ */
 function closeModal(){
 	document.getElementById('display_performance').style.display = "none";
 }
 
-//Close game difficulty modal on click
+/**
+ * @description Close the modal used at game start to choose game difficulty
+ */
 function closeModeModal(){
 	document.getElementById('get_playing_mode').style.display = "none";
 }
 
-//Create function for correct card animation
+/**
+ * @description Used to display correct choice animation upon choosing two tiles.
+ * @param {string} tileId1
+ * @param {string} tileId2 
+ */
 function animateCorrect(tileId1, tileId2){
 	document.getElementById(tileId1).className += ' tile-correct';
 	document.getElementById(tileId2).className += ' tile-correct';
 }
 
-//Create function for wrong card animation
+/**
+ * @description Used to display wrong choice animation upon choosing two tiles.
+ * @param {string} tileId1
+ * @param {string} tileId2 
+ */
 function animateWrong(tileId1, tileId2){
 	document.getElementById(tileId1).className += ' tile-wrong';
 	document.getElementById(tileId2).className += ' tile-wrong';
 }
 
-//Check if an element has a certain class
+/**
+ * @description Used to check if an element has a certain class.
+ * @param {string} el - the element to check
+ * @param {string} className  
+ */
 function hasClass(el, className) {
   if (el.classList)
     return el.classList.contains(className)
@@ -129,14 +167,22 @@ function hasClass(el, className) {
     return !!el.className.match(new RegExp('(\\s|^)' + className + '(\\s|$)'))
 }
 
-//Add a class to an element
+/**
+ * @description Used to add a class to an element.
+ * @param {string} el - the element to check
+ * @param {string} className  
+ */
 function addClass(el, className) {
   if (el.classList)
     el.classList.add(className)
   else if (!hasClass(el, className)) el.className += " " + className
 }
 
-//Remove class from an element
+/**
+ * @description Used to remove a class from an element.
+ * @param {string} el - the element to check
+ * @param {string} className  
+ */
 function removeClass(el, className) {
   if (el.classList)
     el.classList.remove(className)
@@ -146,7 +192,14 @@ function removeClass(el, className) {
   }
 }
 
-//Compare the classes of two elements and add or remove classes accordingly
+/**
+ * @description This function uses the three previously described functions
+ * to determine whether to add or remove a defined class from a tile.
+ * This is used in order to solve adding and removing the same class to a tile
+ * after the user selects it wrongly multiple times.
+ * @param {string} el1 - the element to check
+ * @param {string} el2 - className  
+ */
 function addOrRemoveClass(el1,el2){
 	if(hasClass(el1, 'tile-wrong')){
 		addClass(el1,'tile-wrong');
@@ -174,7 +227,9 @@ function addOrRemoveClass(el1,el2){
 	}
 }
 
-//Flip boards back if there is no match
+/**
+ * @description Used to turn both chosen tiles back after determining they dont have the same value.
+ */
 function flipToBack(){
 	var firstTile = document.getElementById(memoryTileIds[0]);
 	var secondTile = document.getElementById(memoryTileIds[1]);
@@ -190,7 +245,13 @@ function flipToBack(){
 	memoryTileIds = [];
 }
 
-//Create flip tile function
+/**
+ * @description Used to flip two consecutive tiles, determine if they contain the same value
+ * and keep them opened if they do. If not, the previous function is called (flipToBack). It keeps going 
+ * until all pairs have been flipped. Then it displays a summary of session performance. 
+ * @param {string} tile - contains the tile id of the chosen (flipped) tile.
+ * @param {string} val - value is the font-awesome icon class used in the respective array  
+ */
 function memoryFlipTile(tile, val){
     if(tile.innerHTML == '' && memoryValues.length < 2){
         tile.style.background = '#00BCC0';
@@ -227,7 +288,10 @@ function memoryFlipTile(tile, val){
     }
 }
 
-//Manage player performance
+/**
+ * @description Displays a message based on number of turns taken to complete current board.
+ * @param {int} turns 
+ */
 function showPerformance(turns) {
     if (turns <= 10) {
         //show three stars
@@ -252,8 +316,13 @@ function showPerformance(turns) {
     }
 }
 
-//start timer countdown (not completely functional yet)
-//TODO: implement countdown option
+/**
+ * @description Used to display a countdown timer in the OMG game mode. Not entirely implemented yet.
+ * Has to eventually be refactored, to avoid the closure.
+ * TODO: implement this function in OMG mode.
+ * @param {string} duration - countdown duration, or starting point.
+ * @param {string} display - the name of the element in the DOM, the clock should be displayed in. 
+ */
 /*var time = 60 * 1;
 var display = document.querySelector('#clock');
 function startTimer(duration, display) {
@@ -274,7 +343,10 @@ function startTimer(duration, display) {
     }, 1000);
 }*/
 
-//Regular time counter
+/**
+ * @description Starts counting time if control variable startClock is set to true and if the
+ * startClockOnPlayerClick array is empty.
+ */
 function countTimer() {
 	if(startClock && startClockOnPlayerClick.length > 0){
 		++totalSeconds;
