@@ -20,8 +20,37 @@
 	<link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon-180x180.png" />
     <script src="script.js"></script>
 </head>
-<body id="container" onload=""><!--Regular Mode: countTimer(); //Hotseat mode: startTimer(60,document.querySelector('#clock'));-->
- 	<!-- Modal to display information at the end of the game -->
+<body id="container"><!--Regular Mode: countTimer(); //OMG mode: startTimer(60,document.querySelector('#clock'));-->
+ 	<!-- Modal to select difficulty at game start -->
+	<section id="get_playing_mode" class="modal modal-visible">
+	  <!-- Modal content -->
+	  <div class="modal-content">
+		<div id="modal-header-mode-select">
+		  <!--<span id="close_modal">&times;</span>-->
+		  <h2>Welcome to the matching game. Select all pairs of cards in order to win!</h2>
+		</div>
+		<div id="modal-body-mode-select">
+		<form>
+			<p>Select your difficulty:</p>
+			<div class="styled-select slate">
+				<select id="game-options">
+				  <option value="regular" selected>Regular</option>
+				  <option value="hardcore">hardcore</option>
+				  <option value="OMG" disabled>OMG (Coming Soon)</option>
+				</select>
+			</div>
+			<button type="button" class="modal_footer_button content_button" onclick="getGameMode()">Confirm selection</button>
+			<p>You have chosen:</p><p id="show-difficulty">regular</p>
+		</form>
+		</div>
+		<div id="modal-footer-mode-select">
+		<button onclick="newBoard();closeModeModal();" class="modal_footer_button blue_button">Start Game</button>
+		</div>
+	  </div>
+	</section>
+	<!-- Modal ends here --> 
+	
+	<!-- Modal to display information at the end of the game -->
 	<section id="display_performance" class="modal">
 	  <!-- Modal content -->
 	  <div class="modal-content">
