@@ -96,7 +96,7 @@ function reloadBoard(){
 //Function to display modal
 function showModal(achievedTime, numberStars, numberMoves, gameDifficulty){
 	var modal = document.getElementById('display_performance').style.display = "block";
-	document.getElementById('modal-body').innerHTML = 'Board cleared in '+achievedTime+' and with '+numberStars+' stars in '+gameDifficulty+' difficulty. Also, you made '+numberMoves+' moves.';
+	document.getElementById('modal-body').innerHTML = 'Board cleared in '+achievedTime+' and with '+numberStars+' stars on '+gameDifficulty+' difficulty. You made '+numberMoves+' moves.';
 }
 
 //Close player performance modal on click
@@ -221,7 +221,7 @@ function memoryFlipTile(tile, val){
                 }
             //If the last two flipped cards are not the same, flip them back over
             } else {
-                setTimeout(flipToBack, 700);
+                setTimeout(flipToBack, 500);
             }
         }
     }
