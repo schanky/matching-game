@@ -359,3 +359,4 @@ function countTimer() {
 		return clock;
 	}
 }
+newBoard();
