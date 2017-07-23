@@ -11,9 +11,9 @@ You can find the game logo as a favicon in the main directory. Further icons for
 ## Dependencies
 The game uses two separate [google fonts](https://fonts.googleapis.com/css?family=Quicksand:300%7CYanone+Kaffeesatz:300):
 1.  Quicksand
-    Used for headings
+    -   used for headings
 2.  Yanone Kaffeesatz
-    Used for text
+    -   used for text
 
 ## Future Developments
 - include an OMG mode (hardest difficulty, including a countdown timer, instead of a regular one.)
