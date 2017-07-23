@@ -204,24 +204,24 @@ function addOrRemoveClass(el1,el2){
 	if(hasClass(el1, 'tile-wrong')){
 		addClass(el1,'tile-wrong');
 		setTimeout(function() {
-		removeClass(el1,'tile-wrong');
+		    removeClass(el1,'tile-wrong');
 		}, 1000);
 		console.log("Removed and added tile-wrong to first tile");
 	} else if (hasClass(el2, 'tile-wrong')) {
 		addClass(el2,'tile-wrong');
 		setTimeout(function() {
-		removeClass(el2,'tile-wrong');
+		    removeClass(el2,'tile-wrong');
 		}, 1000);
 		console.log("Removed and added tile-wrong to second tile");
 	} else {
 		addClass(el1,'tile-wrong');
 		setTimeout(function() {
-		removeClass(el1,'tile-wrong');
+		    removeClass(el1,'tile-wrong');
 		}, 1000);
 		
 		addClass(el2,'tile-wrong');
 		setTimeout(function() {
-		removeClass(el2,'tile-wrong');
+		    removeClass(el2,'tile-wrong');
 		}, 1000);
 		console.log("Added tile-wrong to first and second tile");
 	}
