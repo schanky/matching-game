@@ -9,7 +9,7 @@ After completing a session the user is greeted with a modal, detailing their per
 You can find the game logo as a favicon in the main directory. Further icons for different sizes are grouped in the folder "icons".
 
 ## Dependencies
-The game uses two separate [google fonts] (https://fonts.googleapis.com/css?family=Quicksand:300%7CYanone+Kaffeesatz:300):
+The game uses two separate [google fonts](https://fonts.googleapis.com/css?family=Quicksand:300%7CYanone+Kaffeesatz:300):
 1.  Quicksand
     Used for headings
 2.  Yanone Kaffeesatz
